@@ -1,0 +1,47 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Select Question</h4>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="onSubmit()" [formGroup]="questionnaireForm">
+      <div class="form-group">
+        <label for="">MasterQuestion Type: </label>
+        <select formControlName="masterQuestion"
+        [ngClass]="{ 'required': formSubmitted && f.masterQuestion.errors }">
+          <option value="yesNo">Yes/No</option>
+          <option value="phone">Phone Info</option>
+          <option value="addressInfo">Address Info</option>
+        </select>
+
+        <div class="configuration">
+          <div>
+            <label>Code: </label> 
+            <input type="text" formControlName="questionCode" [ngClass]="{ 'required': formSubmitted && f.questionCode.errors }">
+          </div>
+          <div>
+            <label>Description: </label> 
+            <input type="text" formControlName="questionDescription" [ngClass]="{ 'required': formSubmitted && f.questionDescription.errors }">
+          </div>
+          <div>
+            <label>Visibility rule: </label>
+            <input type="textarea" formControlName="visibilityRule">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-dark">Save</button>
+      </div>
+    </form>
+  </div>
+</ng-template>
+
+<button (click)="open(content)">Add Question</button>  
+
+<div *ngIf="formData$ | async as formData">
+  <div *ngFor="let form of formData">
+      <div *ngIf="form.masterQuestion === 'yesNo'">
+          <label for="">{{form.questionDescription}}</label>
+          <app-yes-no code={{form.questionCode}}></app-yes-no>
+        </div>
+  </div>
+</div>
