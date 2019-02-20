@@ -1,0 +1,9 @@
+.app-root {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    .add-question {
+        width: 100%;
+    }
+}

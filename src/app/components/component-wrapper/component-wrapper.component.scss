@@ -1,0 +1,10 @@
+.questionHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px;
+
+    label {
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
