@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SaveData } from 'src/app/store/actions';
+import { SaveData, ValidateQuestionCode } from 'src/app/store/actions';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { FormDataState } from 'src/app/store/state';
+import { QuestionnaireState } from 'src/app/store/state';
 import { QuestionnaireFormData } from 'src/app/model/QuestionnaireFormData';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -15,14 +15,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class QuestionSelectorModalComponent implements OnInit {
 
   formData$: Observable<QuestionnaireFormData[]>;
+  validQuestionCode$: Observable<boolean>;
   questionnaireForm: FormGroup;
   formSubmitted: Boolean = false;
 
   constructor(private modalService: NgbModal,
-    private store: Store<FormDataState>, private formBuilder: FormBuilder) {}
+    private store: Store<QuestionnaireState>, private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.formData$ =  this.store.select((state) => state.formData);
+    this.formData$ =  this.store.select((state) => state.questionnaireState.formData);
+    this.validQuestionCode$ =  this.store.select((state) => state.questionnaireState.validQuestionCode);
 
     this.questionnaireForm = this.formBuilder.group({
       masterQuestion: ['', Validators.required],
@@ -42,7 +44,14 @@ export class QuestionSelectorModalComponent implements OnInit {
     const form = this.questionnaireForm;
     this.formSubmitted = true;
 
-    if (form.invalid) {
+    this.store.dispatch(new ValidateQuestionCode(form.value.questionCode));
+
+    let isInvalid;
+    this.validQuestionCode$.subscribe(isValid => {
+      isInvalid = !isValid;
+    });
+
+    if (form.invalid || isInvalid) {
       return;
     }
 
