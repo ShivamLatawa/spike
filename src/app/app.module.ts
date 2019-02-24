@@ -1,44 +1,53 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { QuestionSelectorModalComponent } from './components/question-selector-modal/question-selector-modal.component';
-import { YesNoComponent } from './components/yes-no/yes-no.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from './reducers';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AddressInfoComponent } from './components/address-info/address-info.component';
-
-import { QuestionnaireActionBarComponent } from './components/questionnaire-action-bar/questionnaire-action-bar.component';
-import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { ComponentWrapperComponent } from './components/component-wrapper/component-wrapper.component';
+
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './reducers';
+import { AppEffects } from './app.effects';
+
+
+import { MaterialModule } from './material/material-module';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { QuestionnaireActionBarComponent } from './components/questionnaire-action-bar/questionnaire-action-bar.component';
+import { QuestionnaireFormComponent } from './components/questionnaire-form/questionnaire-form.component';
+import { YesNoComponent } from './components/questions/yes-no/yes-no.component';
+import { AddressInfoComponent } from './components/questions/address-info/address-info.component';
+import { ComponentWrapperComponent } from './components/questions/component-wrapper/component-wrapper.component';
+import {
+  QuestionnaireSelectorDialogComponent
+} from './components/questionnaireEditor/questionnaire-selector-dialog/questionnaire-selector-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuestionSelectorModalComponent,
     YesNoComponent,
     AddressInfoComponent,
     QuestionnaireActionBarComponent,
-    ComponentWrapperComponent
+    ComponentWrapperComponent,
+    QuestionnaireSelectorDialogComponent,
+    QuestionnaireFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument(),
     EffectsModule.forRoot([AppEffects])
   ],
+  entryComponents: [QuestionnaireSelectorDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,42 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="questionnaireForm">
+  <h4>MasterQuestion Type</h4>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="MasterQuestion" formControlName="masterQuestion" [ngClass]="{ 'required': formSubmitted && f.masterQuestion.errors }">
+        <mat-option value="yesNo">
+          Yes/No
+        </mat-option>
+        <mat-option value="addressInfo">
+          Address Info
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Code" formControlName="questionCode" [ngClass]="{ 'required': formSubmitted && f.questionCode.errors }">
+    </mat-form-field>
+  </div>
+
+  <div class="duplicateQuesitonError">
+    <div *ngIf="(validQuestionCode$ | async); else codeExists"></div>
+    <ng-template #codeExists>Question code already exists!</ng-template>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="questionDescription" [ngClass]="{ 'required': formSubmitted && f.questionDescription.errors }">
+    </mat-form-field>
+
+  </div>
+  <div>
+    <mat-form-field>
+      <input matInput placeholder="Visibility rule" formControlName="visibilityRule">
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions>
+    <button type="submit" mat-button cdkFocusInitial>Save</button>
+  </div>
+</form>

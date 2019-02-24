@@ -1,0 +1,13 @@
+<div class="question">
+  <label for="" class="question__description">{{form.questionDescription}}</label>
+  <button mat-raised-button color="warn" class="question__deleteBtn"(click)="deleteQuestion(form.questionCode)">Delete</button>
+</div>
+
+
+<div *ngIf="form.masterQuestion === 'yesNo'">
+  <app-yes-no [code]="form.questionCode"></app-yes-no>
+</div>
+
+<div *ngIf="form.masterQuestion === 'addressInfo'">
+  <app-address-info></app-address-info>
+</div>

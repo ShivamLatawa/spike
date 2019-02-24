@@ -3,5 +3,9 @@
     display: flex;
     justify-content: space-between;
     padding: 8px;
+
+    &__left {
+      margin-right: 40px;
+    }
   }
 }

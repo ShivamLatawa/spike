@@ -1,0 +1,5 @@
+<div *ngIf="formData$ | async as formData">
+    <div *ngFor="let form of formData">
+      <app-component-wrapper [form]="form"></app-component-wrapper>
+    </div>
+</div>

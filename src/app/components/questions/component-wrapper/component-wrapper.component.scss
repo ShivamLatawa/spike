@@ -1,0 +1,15 @@
+.question {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0 30px 0;
+
+    &__description {
+        width: 80%;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    &__deleteBtn {
+        height: 36px;
+    }
+}
